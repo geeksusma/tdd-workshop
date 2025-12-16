@@ -15,8 +15,7 @@ class EmployeeCreationTest {
     void setup() {
         repository = new InMemoryEmployeeRepository();
         service = new EmployeeApplicationService(
-                repository,
-                new EmployeeIdGenerator()
+                repository
         );
     }
 

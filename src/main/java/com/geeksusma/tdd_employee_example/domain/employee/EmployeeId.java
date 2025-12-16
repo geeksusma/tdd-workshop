@@ -6,8 +6,13 @@ final class EmployeeId {
 
     private final UUID value;
 
-    EmployeeId(UUID value) {
+    private EmployeeId(UUID value) {
         this.value = value;
     }
+
+    static EmployeeId generate() {
+        return new EmployeeId(UUID.randomUUID());
+    }
 }
+
 

@@ -6,12 +6,9 @@ import org.springframework.stereotype.Service;
 class EmployeeApplicationService {
 
     private final EmployeeRepository repository;
-    private final EmployeeIdGenerator idGenerator;
 
-    EmployeeApplicationService(EmployeeRepository repository,
-                               EmployeeIdGenerator idGenerator) {
+    EmployeeApplicationService(EmployeeRepository repository) {
         this.repository = repository;
-        this.idGenerator = idGenerator;
     }
 
     EmployeeId createEmployee(CreateEmployeeCommand command) {
@@ -21,20 +18,20 @@ class EmployeeApplicationService {
             throw new IllegalStateException("Employee already exists");
         }
 
+        EmployeeId employeeId = EmployeeId.generate();
         Employee employee =
                 new Employee(
-                        idGenerator.generate(),
-                        new PersonalData(command.name(), command.lastName()),
-                        passport
+                        employeeId,
+                        new EmployeeProfile(
+                                new PersonalData(command.name(), command.lastName()),
+                                passport
+                        )
                 );
+
 
         repository.save(employee);
 
-        return employeeId(employee);
-    }
-
-    private EmployeeId employeeId(Employee employee) {
-        return idGenerator.lastGenerated();
+        return employeeId;
     }
 }
 
