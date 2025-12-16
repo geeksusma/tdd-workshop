@@ -3,17 +3,15 @@ package com.geeksusma.tdd_employee_example.domain.employee;
 final class Employee {
 
     private final EmployeeId id;
-    private final PersonalData personalData;
-    private final Passport passport;
+    private final EmployeeProfile profile;
 
-    Employee(EmployeeId id, PersonalData personalData, Passport passport) {
+    Employee(EmployeeId id, EmployeeProfile profile) {
         this.id = id;
-        this.personalData = personalData;
-        this.passport = passport;
+        this.profile = profile;
     }
 
     Passport passport() {
-        return passport;
+        return profile.passport();
     }
 }
 
